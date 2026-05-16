@@ -1,7 +1,59 @@
 # Self-Play RL Dodger
 
-A Unity ML-Agents project for training a 2D self-play bullet dodging and shooting agent.
-The game includes movement, jumping, crouching, dashing, and projectile combat.
-Built with Unity 2021.3 and ML-Agents PPO/self-play training.
+2D Unity ML-Agents game where two players dodge, jump, crouch, dash, and shoot bullets. One side can be human controlled, or both sides can run trained policies.
 
 https://github.com/user-attachments/assets/1708ed58-ab74-49ba-beff-2e5dad0a0040
+
+
+## Support
+
+If you find this helpful, consider supporting on Patreon!
+
+[<img src="https://c5.patreon.com/external/logo/become_a_patron_button.png" alt="Become a Patron!" width="200">](https://www.patreon.com/NeuralBreakdownwithAVB)
+
+The main training setup is PPO self-play with the `BulletShooter` behavior. The current included model is `Assets/RLAgents/results/env_sp11/BulletShooter/BulletShooter-3101431.onnx`.
+
+## Model
+
+- **Included model:** `Assets/RLAgents/results/env_sp11/BulletShooter/BulletShooter-3101431.onnx`
+- **Main config:** `Assets/RLAgents/config/selfPlay.yaml`
+
+To train headlessly, first make a standalone Unity build. In Unity, use `File > Build Settings`, choose `Windows, Mac, Linux`, include `MainMenu` and `GameEnv`, then build to a local path such as `Builds/RLBuild.app`.
+
+Then run ML-Agents against that build:
+
+```bash
+mlagents-learn Assets/RLAgents/config/selfPlay.yaml --run-id env_sp_new --env Builds/RLBuild.app --num-envs 8 --no-graphics
+```
+
+Training outputs go under `Assets/RLAgents/results/`. Keep only the final `.onnx` model and its `.meta` file in git.
+
+## Environment
+
+- **Initial state:** both players reset to their spawn positions with zero velocity, alive state, dash available, crouch off, and bullets reset.
+
+- **State space:** player position, velocity, crouch state, dash state, dash cooldown, shot cooldown, plus ray perception sensors for nearby bullets, walls, ground, and opponent.
+
+- **Action space:** five discrete controls: move left/right/idle, jump, crouch, dash, and shoot. Shooting is masked while crouching.
+
+- **Reward space:** death gives `-1`, winning gives `+1`, and bullet dodge reward is currently `0`. Env is super sparse, which is great for self-play!
+
+- **Terminal state:** a player dies by bullet, falling, or inactivity. The dead player ends the episode and the surviving player gets the win reward.
+
+## Devlog
+
+Playlist: https://www.youtube.com/playlist?list=PLGXWtN1HUjPdoJwzrCmfVCtOY2GN2kzEb
+
+These were some of my first videos, so the audio is a bit weak.
+
+## Controls (in human vs AI mode)
+
+- **Move:** `A` / `D` or left / right
+- **Jump:** space
+- **Crouch:** down / `S`
+- **Dash:** dash input from the Unity input map
+- **Shoot:** `K`
+
+## Note
+
+This project predates vibe-coding. I made it to learn Unity and build something cool with self-play. There may be superfluous files, old experiments, and dead code.
