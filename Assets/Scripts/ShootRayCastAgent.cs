@@ -221,6 +221,6 @@ public class ShootRayCastAgent : Agent
 
         actions[2] = (int) crouchInput;
         actions[3] = (int) dashInput;
-        actions[4] = (int)  Input.GetAxisRaw("Fire1"); 
+        actions[4] = Input.GetKey(KeyCode.K) ? 1 : 0;
     }
 }

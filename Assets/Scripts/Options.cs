@@ -25,11 +25,11 @@ public class Options : MonoBehaviour
     }
 
     public void OnClickChoice(int idx){
-        Debug.Log(bs[idx].text);
     }
     public void ShowMenu(){
-        Time.timeScale = 0f;
-        OptionsMenu.SetActive(true);
+        if (OptionsMenu != null){
+            OptionsMenu.SetActive(false);
+        }
     }
 
 }

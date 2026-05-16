@@ -4409,6 +4409,10 @@ PrefabInstance:
       propertyPath: start_num_lives
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8675829280565898174, guid: ca1cad6883344407e8e116b5820e4dbc, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8675829281399246157, guid: ca1cad6883344407e8e116b5820e4dbc, type: 3}
       propertyPath: m_Name
       value: EnvironmentMultiRay

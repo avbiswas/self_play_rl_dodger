@@ -10184,7 +10184,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: ab3083bbbb52a4ba499975421afe703a, type: 3}
   m_InferenceDevice: 2
   m_BehaviorType: 0
   m_BehaviorName: BulletShooter
@@ -11861,7 +11861,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: ab3083bbbb52a4ba499975421afe703a, type: 3}
   m_InferenceDevice: 2
   m_BehaviorType: 0
   m_BehaviorName: BulletShooter
@@ -12176,3 +12176,4 @@ MonoBehaviour:
   deathReward: -1
   winReward: 1
   dodgeReward: 0
+  aiVsAiPrefab: {fileID: 100100000, guid: ca1cad6883344407e8e116b5820e4dbc, type: 3}

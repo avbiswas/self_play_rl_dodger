@@ -8,7 +8,7 @@ using Unity.MLAgents.Policies;
 
 public class EnvironmentManagerRayCast : MonoBehaviour
 {
-   
+
     ShootRayCastAgent p1;
     ShootRayCastAgent p2;
     HUDManager uIManager;
@@ -18,9 +18,26 @@ public class EnvironmentManagerRayCast : MonoBehaviour
     [SerializeField] float deathReward = -1f;
     [SerializeField] float winReward = 1f;
     [SerializeField] float dodgeReward = 0;
+    public GameObject aiVsAiPrefab;
     int bullets_dodged = 0;
     int deaths = 0;
     int kills = 0;
+
+    void Awake(){
+        Debug.Log("[GameMode] Awake on " + gameObject.name + " hasKey=" + PlayerPrefs.HasKey("GameMode") + " prefabAssigned=" + (aiVsAiPrefab != null));
+        if (!PlayerPrefs.HasKey("GameMode")) return;
+        int mode = PlayerPrefs.GetInt("GameMode");
+        if (mode != 1) return;
+        if (aiVsAiPrefab == null){
+            Debug.LogError("[GameMode] aiVsAiPrefab not assigned on " + gameObject.name + " — cannot spawn fresh AI vs AI instance.");
+            return;
+        }
+        PlayerPrefs.DeleteKey("GameMode");
+        GameObject fresh = Instantiate(aiVsAiPrefab, transform.position, transform.rotation, transform.parent);
+        fresh.name = aiVsAiPrefab.name;
+        Debug.Log("[GameMode] Spawned fresh AI-vs-AI prefab, destroying original.");
+        Destroy(gameObject);
+    }
 
     void Start(){
         ShootRayCastAgent[] ps = GetComponentsInChildren<ShootRayCastAgent>();
@@ -31,14 +48,13 @@ public class EnvironmentManagerRayCast : MonoBehaviour
             else{
                 p1 = p;
             }
-        }    
+        }
         p1C = p1.gameObject.GetComponent<PlayerControl>();
         p2C = p2.gameObject.GetComponent<PlayerControl>();
         uIManager = FindObjectOfType<HUDManager>();
         Debug.Log("P1 is " + p1C.gameObject.name);
         Debug.Log("P2 is " + p2C.gameObject.name);
         bullets_dodged = 0;
-
     }
 
     public int P1_Lives(){
@@ -104,14 +120,8 @@ public class EnvironmentManagerRayCast : MonoBehaviour
         else if (!p2C.IsAlive()){
             kills += 1;
             EndGameScoring(p2C, p2, p1C, p1);
-            GetComponent<Options>().ShowMenu();
         }
         
-    }
-    void Update(){
-        if (Input.GetKey(KeyCode.M)){
-            GetComponent<Options>().ShowMenu();
-        }
     }
 
     public int GetDodgeScore(){
