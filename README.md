@@ -1,10 +1,11 @@
 # Self-Play RL Dodger
 
 2D Unity ML-Agents game where two players dodge, jump, crouch, dash, and shoot bullets. One side can be human controlled, or both sides can run trained policies.
+Play the game [here](https://avbiswas.itch.io/shadow-gone-rogue)
 
-The main training setup is PPO self-play with the `BulletShooter` behavior.
 
 https://github.com/user-attachments/assets/1708ed58-ab74-49ba-beff-2e5dad0a0040
+
 
 ## Support
 
