@@ -2,8 +2,9 @@
 
 2D Unity ML-Agents game where two players dodge, jump, crouch, dash, and shoot bullets. One side can be human controlled, or both sides can run trained policies.
 
-https://github.com/user-attachments/assets/1708ed58-ab74-49ba-beff-2e5dad0a0040
+The main training setup is PPO self-play with the `BulletShooter` behavior.
 
+https://github.com/user-attachments/assets/1708ed58-ab74-49ba-beff-2e5dad0a0040
 
 ## Support
 
@@ -11,12 +12,41 @@ If you find this helpful, consider supporting on Patreon!
 
 [<img src="https://c5.patreon.com/external/logo/become_a_patron_button.png" alt="Become a Patron!" width="200">](https://www.patreon.com/NeuralBreakdownwithAVB)
 
-The main training setup is PPO self-play with the `BulletShooter` behavior. The current included model is `Assets/RLAgents/results/env_sp11/BulletShooter/BulletShooter-3101431.onnx`.
-
 ## Model
 
 - **Included model:** `Assets/RLAgents/results/env_sp11/BulletShooter/BulletShooter-3101431.onnx`
 - **Main config:** `Assets/RLAgents/config/selfPlay.yaml`
+- **Network:** PPO self-play policy, feed-forward MLP, 3 hidden layers, 512 units per layer, no recurrent memory.
+
+## What is Self-Play?
+
+Self-play is Machine Learning technique where the AI plays against previous versions of itself till it gets better! During training, we save older policy snapshots and re-use them as opponents for our current model. This updates policies to be diversely capable against a variety of strategies.
+
+## How to play locally
+
+Open the project in Unity, then go to `File > Build Settings`.
+
+Select `WebGL`, include `Scenes/MainMenu` and `Scenes/GameEnv`, then build to a folder such as `Builds-WebGL`.
+
+For easiest local testing, set `Player Settings > Publishing Settings > Compression Format` to `Disabled`.
+
+After the build finishes, serve the folder locally:
+
+```bash
+cd Builds-WebGL
+python3 -m http.server 8080
+```
+
+Then open:
+
+```text
+http://localhost:8080
+```
+
+Play!!
+
+
+## How to train
 
 To train headlessly, first make a standalone Unity build. In Unity, use `File > Build Settings`, choose `Windows, Mac, Linux`, include `MainMenu` and `GameEnv`, then build to a local path such as `Builds/RLBuild.app`.
 
