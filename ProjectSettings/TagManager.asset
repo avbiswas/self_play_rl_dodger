@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Bullet
+  - Ground
+  - Spawner
+  - PlayerParent
+  - CPUParent
+  - CPUBullet
+  - PlayerBullet
+  - AI
+  - AIGround
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Ground
+  - Bullet
+  - Player
+  - WorldBoundaries
+  - CPUBullet
+  - PlayerBullet
+  - AI
+  - FallenDown
+  - PlayerBulletCatcher
+  - AIBulletCatcher
+  - AIGround
+  - StateCamera
+  - AIStateCamera
+  - PlayerStateCamera
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: GridSensorComponent
+    uniqueID: 2841832813
+    locked: 0
