@@ -58,6 +58,8 @@ mlagents-learn Assets/RLAgents/config/selfPlay.yaml --run-id env_sp_new --env Bu
 
 Training outputs go under `Assets/RLAgents/results/`. Keep only the final `.onnx` model and its `.meta` file in git.
 
+
+
 ## Environment
 
 - **Initial state:** both players reset to their spawn positions with zero velocity, alive state, dash available, crouch off, and bullets reset.
@@ -75,6 +77,18 @@ Training outputs go under `Assets/RLAgents/results/`. Keep only the final `.onnx
 Playlist: https://www.youtube.com/playlist?list=PLGXWtN1HUjPdoJwzrCmfVCtOY2GN2kzEb
 
 These were some of my first videos, so the audio is a bit weak.
+
+## Training config
+
+The shared policy run used PPO with self-play:
+
+- **Learning rate:** `0.0002` - small enough to keep self-play training stable.
+- **Batch size:** `2048` - large batch for smoother PPO updates.
+- **Buffer size:** `20480` - collects enough experience before each update.
+- **Time horizon:** `256` - lets rewards connect to longer dodge/shoot sequences.
+- **Self-play window:** `10` - keeps a pool of older opponents.
+- **Swap steps:** `5,000` - changes opponents often enough to avoid overfitting.
+- **Opponent mix:** `0.5` latest model ratio - half recent opponent, half older snapshots.
 
 ## Controls (in human vs AI mode)
 
