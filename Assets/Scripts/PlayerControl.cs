@@ -54,6 +54,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] GameObject right;
     [SerializeField] GameObject jump;
     [SerializeField] GameObject canShoot;
+    [SerializeField] BulletCooldownVisualizer bulletCooldownVisualizer;
     
     
     [SerializeField] bool autoClamp = true;  
@@ -113,6 +114,10 @@ public class PlayerControl : MonoBehaviour
     
     void Start(){
         fixedWaitTimeManager = gameObject.AddComponent<FixedWaitTimeManager>();
+        if (bulletCooldownVisualizer != null){
+            bulletCooldownVisualizer.AttachToPlayer(transform);
+        }
+
         Bullet[] bullets = FindObjectsOfType<Bullet>(true);
         bulletColliders = new List<Collider2D>();
         foreach (Bullet bullet in bullets){
@@ -185,6 +190,11 @@ public class PlayerControl : MonoBehaviour
     public bool IsCrouching(){
         return isCrouching;
     }
+
+    public bool CanFireWhileCrouching(){
+        return allowCrouchFire;
+    }
+
     public bool CanDash(){
         return canDash;
     }
@@ -243,11 +253,14 @@ public class PlayerControl : MonoBehaviour
     }
 
     public void Update(){
+        bool canShootNow = shootPoint != null && shootPoint.CanShoot();
+
         if (canShoot != null){
-            canShoot.SetActive(shootPoint.CanShoot());
+            canShoot.SetActive(canShootNow);
         }
-        if (Input.GetKeyDown(KeyCode.K)){
-            Debug.Break();
+
+        if (bulletCooldownVisualizer != null){
+            bulletCooldownVisualizer.Show(shootPoint, isCrouching && !allowCrouchFire);
         }
     }
 

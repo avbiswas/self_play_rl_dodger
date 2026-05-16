@@ -56,7 +56,27 @@ public class SmartBulletSpawner : MonoBehaviour
         return Time.fixedTime - timeLastBulletWasFired;
     }
 
+    public float GetBulletCooldownDuration(){
+        return bulletSpawnMinTime;
+    }
+
+    public float GetBulletCooldownRemaining(){
+        return Mathf.Max(0, bulletSpawnMinTime - GetTimeSinceLastBullet());
+    }
+
+    public float GetBulletCooldownProgress(){
+        if (bulletSpawnMinTime <= 0){
+            return 1;
+        }
+
+        return Mathf.Clamp01(GetTimeSinceLastBullet()/bulletSpawnMinTime);
+    }
+
     public bool CanShoot(){
+        if (bullets == null){
+            init_bullets();
+        }
+
         if (GetTimeSinceLastBullet() > bulletSpawnMinTime){
             for (int idx = 0; idx < bullets.Count; idx ++){
                 if (!bullets[idx].activeInHierarchy){
