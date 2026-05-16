@@ -1,3 +1,9 @@
 RLAgents/results/*
+!RLAgents/results/env_sp11/
+RLAgents/results/env_sp11/*
+!RLAgents/results/env_sp11/BulletShooter/
+RLAgents/results/env_sp11/BulletShooter/*
+!RLAgents/results/env_sp11/BulletShooter/BulletShooter-3101431.onnx
+!RLAgents/results/env_sp11/BulletShooter/BulletShooter-3101431.onnx.meta
 Demonstrations/*
 Recordings/*

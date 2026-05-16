@@ -45,7 +45,13 @@ sysinfo.txt
 
 # Unity/ML-Agents generated outputs
 /Assets/Recordings/
-/Assets/RLAgents/results/
+/Assets/RLAgents/results/*
+!/Assets/RLAgents/results/env_sp11/
+/Assets/RLAgents/results/env_sp11/*
+!/Assets/RLAgents/results/env_sp11/BulletShooter/
+/Assets/RLAgents/results/env_sp11/BulletShooter/*
+!/Assets/RLAgents/results/env_sp11/BulletShooter/BulletShooter-3101431.onnx
+!/Assets/RLAgents/results/env_sp11/BulletShooter/BulletShooter-3101431.onnx.meta
 /Assets/ML-Agents/Timers/
 /UnityMLExpts/
 /UnityRLExpts/
